@@ -25,8 +25,9 @@ def register(request):
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
-            messages.success(request, f'Account created for {username}!')
-            return redirect('blog-home')
+            messages.success(
+                request, 'Your account has been created! Log in now!')
+            return redirect('login')
     else:
         # display an empty form if not POST request
         # 1) form = UserCreationForm()
