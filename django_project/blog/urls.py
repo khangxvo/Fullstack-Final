@@ -1,6 +1,7 @@
 from django.urls import path
 from .views import PostListView, PostDetailView
 from . import views
+# for testing
 
 urlpatterns = [
     # path('', views.home, name='blog-home'),
