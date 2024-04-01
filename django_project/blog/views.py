@@ -1,7 +1,15 @@
 from django.shortcuts import render
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+# redirect to login page for the login that get this as argument
 from django.http import HttpResponse
 from .models import Post
-from django.views.generic import ListView, DeleteView
+from django.views.generic import (
+    ListView,
+    DetailView,
+    CreateView,
+    UpdateView,
+    DeleteView
+)
 # Create your views here.
 
 # posts = [
@@ -36,8 +44,49 @@ class PostListView(ListView):
     ordering = ['-date_posted']
 
 
-class PostDetailView(DeleteView):
+class PostDetailView(DetailView):
     model = Post
+    template_name = 'blog/post_detail.html'
+    # specify template name to be safe from auto look up name of django
+    context_object_name = 'post'
+
+
+class PostCreateView(LoginRequiredMixin, CreateView):
+    model = Post
+    fields = ['title', 'content']
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        # set the author of the current from the the login user
+        return super().form_valid(form)
+        # run the super valid form to save
+
+
+class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Post
+    fields = ['title', 'content']
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+    def test_func(self):
+        post = self.get_object()
+        if self.request.user == post.author:
+            return True
+        return False
+
+
+class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Post
+    context_object_name = 'post'
+    success_url = '/'
+
+    def test_func(self):
+        post = self.get_object()
+        if self.request.user == post.author:
+            return True
+        return False
 
 
 def about(request):
