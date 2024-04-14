@@ -136,3 +136,10 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # for performance reason to not clog database and store in file system
 MEDIA_URL = "/media/"
 # way to access images in the browser
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = "duykhangduykhang0702@gmail.com"
+EMAIL_HOST_PASSWORD = "Kh@ngivykid7"
