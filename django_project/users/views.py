@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 # from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 # get flash messages
-from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
+from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm, FindFriend
 from django.contrib.auth.decorators import login_required
 
 
@@ -60,3 +60,12 @@ def profile(request):
     }
 
     return render(request, 'users/profile.html', context)
+
+
+@login_required
+def find_friend(request):
+    if request.method == 'POST':
+        form = FindFriend(request.POST)
+    else:
+        form = FindFriend()
+    return render(request, 'users/find_friends.html', {'form': form})
