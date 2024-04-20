@@ -6,7 +6,7 @@
 5) Change directory to django_project
 6) Intalled packages by command: pip install -r requirements.txt
 
-### Initiate Sever ###
+### Initiate Server ###
 1) Change your directory to Fullstack-Final
 2) Activate the environment: source [env]/bin/activate
 3) Change directory to django_project
