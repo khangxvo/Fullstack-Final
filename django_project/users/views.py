@@ -4,6 +4,8 @@ from django.contrib import messages
 # get flash messages
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm, FindFriend
 from django.contrib.auth.decorators import login_required
+import requests
+import json
 
 
 # Create your views here.
@@ -66,6 +68,24 @@ def profile(request):
 def find_friend(request):
     if request.method == 'POST':
         form = FindFriend(request.POST)
+        response = get_book(request.POST['spotify_profile'])
+        # response = response.replace("</P>", "</p>")
+        print(response)
     else:
         form = FindFriend()
-    return render(request, 'users/find_friends.html', {'form': form})
+        response = ""
+    return render(request, 'users/find_friends.html', {'form': form, 'information': response})
+
+
+def get_book(book_name):
+    url = "https://api.spotify.com/v1/search?q={name}&type=audiobook".format(
+        name=book_name)
+
+    payload = {}
+    headers = {
+        'Authorization': 'Bearer BQC8x4tK53P8Bu51fdkI8JhC33xbj4vM05KoGPbt7jGzDXHjSi6KF8KAF_PlkTqJEwl2RPBQFIe0yWk-eJtTniFGGL028wteg819N-6ZCT_Op-X-Fgz3Xpe0BDqbg3ZRtkVCsqT4o9-A16z8A38pkYx1F5K_jn-Cdaxbr48Z-QOufs_8PX__vRsDneA214XkGF7f9-M-x_jYvTldsKQ'
+    }
+
+    response = requests.request("GET", url, headers=headers, data=payload)
+    data = json.loads(response.text)
+    return data["audiobooks"]["items"][1]['html_description']

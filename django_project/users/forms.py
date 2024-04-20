@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from .models import Profile
 from django import forms
+import requests
 
 
 class UserRegisterForm(UserCreationForm):
@@ -34,6 +35,7 @@ class ProfileUpdateForm(forms.ModelForm):
 
 class FindFriend(forms.Form):
     spotify_profile = forms.CharField(max_length=500)
+    print(spotify_profile)
 
 
 def spotify_api(link):
