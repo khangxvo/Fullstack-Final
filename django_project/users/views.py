@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 # from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 # get flash messages
-from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm, FindFriend
+from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm, FindAudioBook
 from django.contrib.auth.decorators import login_required
 import requests
 import json
@@ -65,14 +65,15 @@ def profile(request):
 
 
 @login_required
-def find_friend(request):
+def findAudioBook(request):
     if request.method == 'POST':
-        form = FindFriend(request.POST)
-        response = get_book(request.POST['spotify_profile'])
-        # response = response.replace("</P>", "</p>")
-        print(response)
+        form = FindAudioBook(request.POST)
+        # print(request.POST)
+        response = get_book(request.POST['audio_title'])
+        response = response
+        # print(response)
     else:
-        form = FindFriend()
+        form = FindAudioBook()
         response = ""
     return render(request, 'users/find_friends.html', {'form': form, 'information': response})
 
@@ -83,9 +84,11 @@ def get_book(book_name):
 
     payload = {}
     headers = {
-        'Authorization': 'Bearer BQC8x4tK53P8Bu51fdkI8JhC33xbj4vM05KoGPbt7jGzDXHjSi6KF8KAF_PlkTqJEwl2RPBQFIe0yWk-eJtTniFGGL028wteg819N-6ZCT_Op-X-Fgz3Xpe0BDqbg3ZRtkVCsqT4o9-A16z8A38pkYx1F5K_jn-Cdaxbr48Z-QOufs_8PX__vRsDneA214XkGF7f9-M-x_jYvTldsKQ'
+        'Authorization': 'Bearer BQCsM-MjS5zCC9D41_d46YSqJFNNI6_nqvLDuw6l7jnVJXAKdtWz-1LXIfIyVFuyEr84MAKitbnJTFsWFoXlzcrY5QH5hooQvwP5o3Cf0_su4fBQJ8gV_y8SCkAkx2I-y5Q26ETb9aa3Q0PNF0JFEaP5QwvEXc25WjqS7oWaBk2fGijuNIf1xZm9EIQMIq7ChRx2u25a09-XOQSiH28'
     }
 
     response = requests.request("GET", url, headers=headers, data=payload)
     data = json.loads(response.text)
     return data["audiobooks"]["items"][1]['html_description']
+    # if error audio, try to refresh the token
+    # return data

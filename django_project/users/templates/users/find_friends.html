@@ -6,11 +6,11 @@
     <form method="POST">
         {% csrf_token %}
         <fieldset class="form-group">
-            <legend class="border-bottom mb-4">Enter Your Spotify Link Here:</legend>
+            <legend class="border-bottom mb-4">Enter Audio Book Title Here:</legend>
             {{ form|crispy }}
         </fieldset>
         <div class="form-group">
-            <button class="btn btn-outline-info" type="submit">Find Friend</button>
+            <button class="btn btn-outline-info" type="submit">Find Audiobooks</button>
         </div>
         {{ information | safe }}
     </form>

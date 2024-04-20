@@ -33,11 +33,5 @@ class ProfileUpdateForm(forms.ModelForm):
         fields = ['image']
 
 
-class FindFriend(forms.Form):
-    spotify_profile = forms.CharField(max_length=500)
-    print(spotify_profile)
-
-
-def spotify_api(link):
-    result = ""
-    return result
+class FindAudioBook(forms.Form):
+    audio_title = forms.CharField(max_length=500)
