@@ -12,3 +12,7 @@
 3) Change directory to django_project
 4) Run server by: python manage.py runserver
 5) Click on the link and you should see the website
+
+### KeyError at /FindAudioBooks/ ###
+This happened due to API token expired, let me know if this happened to you 
+Need to find a way to auto refresh api token 
