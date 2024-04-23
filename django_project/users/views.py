@@ -84,7 +84,7 @@ def get_book(book_name):
 
     payload = {}
     headers = {
-        'Authorization': 'Bearer BQCsM-MjS5zCC9D41_d46YSqJFNNI6_nqvLDuw6l7jnVJXAKdtWz-1LXIfIyVFuyEr84MAKitbnJTFsWFoXlzcrY5QH5hooQvwP5o3Cf0_su4fBQJ8gV_y8SCkAkx2I-y5Q26ETb9aa3Q0PNF0JFEaP5QwvEXc25WjqS7oWaBk2fGijuNIf1xZm9EIQMIq7ChRx2u25a09-XOQSiH28'
+        'Authorization': 'Bearer BQAasblnpm2v1o-pd_gJAosGDveu9nRMXEC4LiY4ZOo7slDyVQIcNrE8yKpoUqjjGF1Ie0yR3-QNdXnqZOToDc6nB72REib4N1vIzcHkoNcZAc7IhdsQPGEol7N7bIee54v6P-x2_Jik8XlzxHtlzGItSseoqqo66eTAHVQQVh5ZWp59Ys1uqkkoCZJBmr4oH0D-Bbjrwr4xKqYKpj4'
     }
 
     response = requests.request("GET", url, headers=headers, data=payload)
