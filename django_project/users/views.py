@@ -68,7 +68,7 @@ def profile(request):
 def findAudioBook(request):
     if request.method == 'POST':
         form = FindAudioBook(request.POST)
-        # print(request.POST)
+        print(request.POST)
         response = get_book(request.POST['audio_title'])
         response = response
         # print(response)
