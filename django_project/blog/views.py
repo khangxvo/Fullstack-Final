@@ -105,3 +105,6 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 def about(request):
     # return HttpResponse("<h1>Blog About</h1>")
     return render(request, 'blog/about.html', {"title": "About"})
+
+def top_picks(request):
+    return render(request, 'blog/top_picks.html')
