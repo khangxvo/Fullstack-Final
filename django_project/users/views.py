@@ -4,6 +4,7 @@ from django.contrib import messages
 # get flash messages
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm, FindAudioBook
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
 import requests
 import json
 
@@ -87,8 +88,16 @@ def get_book(book_name):
         'Authorization': 'Bearer BQAasblnpm2v1o-pd_gJAosGDveu9nRMXEC4LiY4ZOo7slDyVQIcNrE8yKpoUqjjGF1Ie0yR3-QNdXnqZOToDc6nB72REib4N1vIzcHkoNcZAc7IhdsQPGEol7N7bIee54v6P-x2_Jik8XlzxHtlzGItSseoqqo66eTAHVQQVh5ZWp59Ys1uqkkoCZJBmr4oH0D-Bbjrwr4xKqYKpj4'
     }
 
-    response = requests.request("GET", url, headers=headers, data=payload)
-    data = json.loads(response.text)
-    return data["audiobooks"]["items"][1]['html_description']
+    # response = requests.request("GET", url, headers=headers, data=payload)
+    # data = json.loads(response.text)
+    # return data["audiobooks"]["items"][1]['html_description']
+    try:
+        response = requests.request("GET", url, headers=headers, data=payload)
+        response.raise_for_status()
+        data = json.loads(response.text)
+        return data["audiobooks"]["items"][1]['html_description']
+    except requests.exceptions.RequestException as e:
+    # Handle invalid request error here
+        return "Token Expired or Invalid Token, try again"
     # if error audio, try to refresh the token
     # return data
