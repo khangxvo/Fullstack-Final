@@ -21,6 +21,7 @@ urlpatterns = [
     path('post/new/', PostCreateView.as_view(), name='post-create'),
     path('about/', views.about, name='blog-about'),
     path('top_picks/', views.top_picks, name='top_picks'),
+    path('feedback/', views.feedback, name='feedback'),
     path('user/<str:username>', UserPostListView.as_view(), name='user-posts'),
 
 ]

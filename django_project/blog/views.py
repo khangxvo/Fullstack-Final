@@ -108,3 +108,6 @@ def about(request):
 
 def top_picks(request):
     return render(request, 'blog/top_picks.html')
+
+def feedback(request):
+    return render(request, 'blog/feedback.html')
