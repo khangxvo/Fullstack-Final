@@ -111,3 +111,9 @@ def top_picks(request):
 
 def feedback(request):
     return render(request, 'blog/feedback.html')
+
+def community_guidelines(request):
+    return render(request, 'blog/community_guidelines.html')
+
+def contact(request):
+    return render(request, 'blog/contact.html')
